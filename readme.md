@@ -11,7 +11,7 @@ Generando un carro de compras, escalándolo de a poco.
 4. Funcionalidad de carro básico completa.
 
 TODO:
--Mejorar con un CRUD
--Conectar a una DB.
--Agregar conexión de usuario.
--Agregar seguridad (OAuth o JWT)
+- Mejorar con un CRUD
+- Conectar a una DB.
+- Agregar conexión de usuario.
+- Agregar seguridad (OAuth o JWT)
