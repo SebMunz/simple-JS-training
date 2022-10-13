@@ -3,8 +3,6 @@ console.log("Hola, soy la consola");
 /* TODO:
     -Mejorar funcionalidad (botón de quitar producto)
     -Agregar resumen de compra al botón de finalizar
-    -Mejorar presentación del documento HTML
-    -Embellecer
 */
 
 // para seleccionar elementos del DOM
@@ -17,25 +15,27 @@ const templateLista = document.getElementById("templateLista");
 // fragmento para evitar reflow
 const fragment = document.createDocumentFragment();
 
-const carritoObjetos = {};
+const carritoObjetos = [];
 
 /* Receptor del evento click en el botón, crea un objeto (productos) usando el dataset,
-acciona la función imprimirCarro, el if utiliza el título leído del dataset para sumar cantidad.
+acciona la función imprimirCarro. Utiliza findIndex y condicional para sumar.
 */
-const agregarCarrito = (e) => {
+function agregarCarrito(e) {
   const productos = {
     titulo: e.target.dataset.info,
     id: e.target.dataset.info,
     cantidad: 1,
   };
 
-  if (carritoObjetos.hasOwnProperty(productos.titulo)) {
-    productos.cantidad = carritoObjetos[productos.titulo].cantidad + 1;
+  const indiceProductos = carritoObjetos.findIndex((item) => item.id === productos.id);
+  if (indiceProductos === -1) {
+    carritoObjetos.push(productos);
+  } else {
+    carritoObjetos[indiceProductos].cantidad++;
   }
 
-  carritoObjetos[productos.titulo] = productos;
   imprimirCarro(productos);
-};
+}
 
 /* función imprimirCarro.
 Imprime el template sacado del html para agregarlo al DOM.
@@ -43,10 +43,10 @@ Utiliza un forEach para iterar por cada botón, agregando dicho elemento al docu
 Utilizamos clone para evitar problemas cuando modificamos el template.
 Para evitar que se agregue sin limpiar, agregamos un textContent vacío.
 */
-const imprimirCarro = () => {
+const imprimirCarro = (array) => {
   carro.textContent = "";
 
-  Object.values(carritoObjetos).forEach((i) => {
+  array.forEach((i) => {
     const clone = templateLista.content.firstElementChild.cloneNode(true);
     clone.querySelector(".lead").textContent = i.titulo;
     clone.querySelector(".badge").textContent = i.cantidad;
