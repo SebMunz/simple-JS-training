@@ -20,7 +20,7 @@ const carritoObjetos = [];
 /* Receptor del evento click en el botón, crea un objeto (productos) usando el dataset,
 acciona la función imprimirCarro. Utiliza findIndex y condicional para sumar.
 */
-function agregarCarrito(e) {
+const agregarCarrito = (e) => {
   const productos = {
     titulo: e.target.dataset.info,
     id: e.target.dataset.info,
@@ -34,8 +34,8 @@ function agregarCarrito(e) {
     carritoObjetos[indiceProductos].cantidad++;
   }
 
-  imprimirCarro(productos);
-}
+  imprimirCarro(carritoObjetos);
+};
 
 /* función imprimirCarro.
 Imprime el template sacado del html para agregarlo al DOM.
